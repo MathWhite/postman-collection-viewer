@@ -1,0 +1,63 @@
+{
+    "matheus": {
+      "dark": true,
+      "colors": {
+        "primary": "#282A36",
+        "secondary": "#343746",
+        "accent": "#AE60C5",
+        "error": "#FF5252",
+        "info": "#2196F3",
+        "success": "#4CAF50",
+        "warning": "#FFC107"
+      }
+    },
+    "light": {
+      "dark": false,
+      "colors": {
+        "primary": "#FFFFFF",
+        "secondary": "#FFFFFF",
+        "accent": "#8c8c8c",
+        "error": "#FF5252",
+        "info": "#2196F3",
+        "success": "#4CAF50",
+        "warning": "#FFC107"
+      }
+    },
+    "dark": {
+      "dark": true,
+      "colors": {
+        "primary": "#0C0A00",
+        "secondary": "#424242",
+        "accent": "#FF4081",
+        "error": "#FF5252",
+        "info": "#2196F3",
+        "success": "#4CAF50",
+        "warning": "#FFC107"
+      }
+    },
+    "wevo": {
+      "dark": false,
+      "colors": {
+        "primary": "#82B1FF",
+        "secondary": "#000025",
+        "accent": "#B0E0E6",
+        "error": "#C10000",
+        "info": "#3F51B5",
+        "success": "#0FBA5E",
+        "warning": "#FFEB3B"
+      }
+    },
+    "jitterbit": {
+      "dark": false,
+      "colors": {
+        "primary": "#1B3E51",
+        "secondary": "#7C97A2",
+        "accent": "#FF6529",
+        "error": "#F44336",
+        "info": "#3F51B5",
+        "success": "#4CAF50",
+        "warning": "#FFEB3B"
+      }
+    }
+  }
+  
