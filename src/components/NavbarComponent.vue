@@ -1,8 +1,18 @@
 <template>
   
     <v-app-bar app color="info">
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <v-toolbar-title>Doc by Matheus</v-toolbar-title>
+      <v-btn 
+        icon
+        @click="redirectToIn"
+      >
+        <v-icon>mdi-linkedin</v-icon>
+      </v-btn>
+      <v-btn 
+        icon
+        @click="redirectToGit"
+      >
+        <v-icon>mdi-github</v-icon>
+      </v-btn>
       <v-spacer />
       <div class="d-flex align-center">
         <v-switch
@@ -13,20 +23,6 @@
         <v-icon class="ml-2 mr-5">{{ isDarkTheme ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
       </div>
     </v-app-bar>
-
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>Menu Item 1</v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title>Menu Item 2</v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title>Menu Item 3</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
   
 </template>
 
@@ -43,7 +39,13 @@ export default {
       const newTheme = this.isDarkTheme ? 'dark' : 'light';
       this.$vuetify.theme.global.name = newTheme; // Altera o tema global do Vuetify
       localStorage.setItem('selectedTheme', newTheme); // Atualiza o tema no localStorage
-    }
+    },
+    redirectToIn() {
+      window.open("https://www.linkedin.com/in/matheus-carvalho-4639a5170/", "_blank"); // Abre em uma nova aba
+    },
+    redirectToGit() {
+      window.open("https://github.com/MathWhite/postman-collection-viewer/", "_blank"); // Abre em uma nova aba
+    },
   },
   mounted() {
     // Define o tema inicialmente ao montar o componente
