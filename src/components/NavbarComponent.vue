@@ -1,6 +1,6 @@
 <template>
   
-    <v-app-bar app>
+    <v-app-bar app color="info">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>Doc by Matheus</v-toolbar-title>
       <v-spacer />

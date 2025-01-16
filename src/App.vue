@@ -4,12 +4,12 @@
       <NavbarComponent />
       <v-container class="d-flex flex-column justify-start align-center" style="height: 100vh; overflow-y: auto;">
         <!-- Container principal -->
-        <v-card class="pa-5" outlined shaped>
+        <v-card color="secondary" class="pa-2" outlined style="width: 100%; max-width: none;">
           <!-- Título -->
           <v-row justify="center" class="mb-4">
             <v-col class="text-center">
-              <h1>{{ collection.info.name }}</h1>
-              <p>Collection of API endpoints and details for Jitterbit integration.</p>
+              <v-typography color="text" class="text-h1">Postman Collection Viewer</v-typography>
+              <v-typography color="text">by ~Matheus Carvalho</v-typography>
             </v-col>
           </v-row>
 
@@ -19,57 +19,81 @@
               v-for="folder in collection.item"
               :key="folder.name"
               cols="12"
-              class="mb-3"
+              class="ma-0"
             >
-              <v-card>
-                <v-card-title @click="folder.expanded = !folder.expanded">
-                  <v-icon>mdi-folder</v-icon> {{ folder.name }}
+              <v-card color="primary" class="ma-0" style="min-width: 100%;">
+                <v-card-title @click="colapseAll(folder)">
+                  <v-icon>mdi-folder</v-icon> 
+                  <v-typography color="text" class="ml-2">{{ folder.name }}</v-typography>
                 </v-card-title>
-                <v-card-text v-show="folder.expanded">
+                <v-card-text v-show="folder.expanded" style="min-height: fit-content;">
                   <!-- Exibe as requisições dentro da pasta -->
                   <div v-for="request in folder.item" :key="request.name" class="request-details">
-                    <h2>{{ request.name }}</h2>
-                    <p><strong>Method:</strong> {{ request.request.method }}</p>
-                    <p><strong>URL:</strong> <code>{{ formatPath(request.request.url.path) }}</code></p>
-
-                    <v-card>
-                      <v-card-title>
-                        <v-tabs v-model="folder.activeTab" align="centered">
-                          <v-tab>Parameters</v-tab>
-                          <v-tab>Headers</v-tab>
+                    
+                    <v-divider class="border-opacity-50 mt-6 mb-4"></v-divider>   
+                    <v-typography color="text" class="text-h4">{{ request.name }}</v-typography>
+                    <v-row class="ma-0">
+                      <v-col class="pa-1">
+                        <v-typography color="text"><strong>Method:</strong> {{ request.request.method }}</v-typography>
+                      </v-col>
+                    </v-row>
+                    <v-row class="ma-0">
+                      <v-col class="pa-1">
+                        <v-typography color="text"><strong>URL: </strong></v-typography>
+                        <v-code>{{ formatPath(request.request.url.path) }}</v-code>
+                      </v-col>
+                    </v-row>
+                    <v-card class="mt-3" style="min-width: 100%;">
+                      <v-card-title class="pa-0 pl-2 pb-4">
+                        <v-tabs v-model="request.activeTab" align="centered">
+                          <v-tab color="text">Parameters</v-tab>
+                          <v-tab color="text">Headers</v-tab>
                         </v-tabs>
                       </v-card-title>
 
                       <!-- Conteúdo dinâmico com base na tab selecionada -->
-                      <v-card-text>
+                      <v-card-text style="min-height: fit-content;">
                         <v-row>
                           <v-col cols="12" md="4">
-                            <span>Name</span>
+                            <v-typography color="text"><strong>Name</strong></v-typography>
                           </v-col>                          
                           <v-col cols="12" md="4">
-                            <span>Value</span>
+                            <v-typography color="text"><strong>Value</strong></v-typography>
                           </v-col>
                         </v-row>                       
-                        <v-divider class="border-opacity-50 mt-5"></v-divider>   
-
-                        <v-row v-if="folder.activeTab === 0 && request.request.url?.query?.length > 0">
+                        <v-divider class="border-opacity-50 mt-1 mb-3"></v-divider>   
+                        <v-row v-if="request.activeTab === 0 && request.request.url?.query?.length > 0">
                           <v-col                         
                             v-for="query in request.request.url.query"
                             :key="query.key"
                             cols="12"
-                            class="mb-3"
+                            md="12"
                           >
-                            <p><strong>{{ query.key }}:</strong> {{ query.value }}</p>
+                          <v-row>
+                            <v-col cols="12" md="4">
+                              <v-typography color="text"><strong>{{ query.key }}</strong></v-typography>
+                            </v-col>
+                            <v-col cols="12" md="4">
+                              <v-code class="ml-2">{{ query.value }}</v-code>
+                            </v-col>
+                          </v-row>
                           </v-col>
                         </v-row>
-                        <v-row v-if="folder.activeTab === 1 && request.request.header?.length > 0">
+                        <v-row v-if="request.activeTab === 1 && request.request.header?.length > 0">
                           <v-col                         
                             v-for="head in request.request.header"
                             :key="head.key"
                             cols="12"
-                            class="mb-3"
+                            md="12"
                           >
-                            <p><strong>{{ head.key }}:</strong> {{ head.value }}</p>
+                            <v-row>
+                              <v-col cols="12" md="4">
+                                <v-typography color="text"><strong>{{ head.key }}</strong></v-typography>
+                              </v-col>
+                              <v-col cols="12" md="4">
+                                <v-code class="ml-2">{{ head.value }}</v-code>
+                              </v-col>
+                            </v-row>
                           </v-col>
                         </v-row>
                       </v-card-text>
@@ -77,12 +101,23 @@
 
                     <!-- Condições para exibir o corpo da requisição e cURL -->
                     <div v-if="request.request?.body && request.request?.body?.raw">
-                      <h3>Request Body</h3>
-                      <pre>{{ request.request.body.raw }}</pre>
+                      <v-divider class="border-opacity-50 mt-6 mb-4"></v-divider> 
+                      <v-typography color="text" class="text-h6">Request Body</v-typography>
+                      <v-textarea
+                        v-model="request.request.body.raw"
+                        readonly
+                        variant="solo-filled"
+                        :rows="4"
+                      />
                     </div>     
                     <div v-if="request.request">
-                      <h3>cURL</h3>
-                      <pre>{{ generateCurl(request.request) }}</pre>
+                      <v-typography color="text" class="text-h6">cURL</v-typography>
+                      <v-textarea
+                        :value="generateCurl(request.request)"
+                        readonly
+                        variant="solo-filled"
+                        :rows="4"
+                      />
                     </div>
                   </div>
                 </v-card-text>
@@ -95,6 +130,7 @@
   </v-app>
 </template>
 
+
 <script>
 import NavbarComponent from './components/NavbarComponent.vue';
 import postman from './assets/postman-collection.json';
@@ -105,9 +141,14 @@ export default {
   components: {
     NavbarComponent,
   },
-  data: () => ({
-    collection: postman,
-  }),
+  
+  data() {
+    return {
+      collection: postman,
+      bodyLength: 4,
+    }    
+  },
+
   methods: {
     // Método para gerar o cURL a partir da requisição
     generateCurl(request) {
@@ -131,6 +172,11 @@ export default {
     formatPath(paths) {
       return paths.join('/');
     },
+    colapseAll(folder) {
+      this.collection.item.map((n) => n === folder ? null : n.expanded = false);
+      
+      folder.expanded = !folder.expanded
+    }
   },
 };
 </script>
@@ -163,50 +209,8 @@ export default {
   max-height: 300px;
   overflow-y: auto;
 }
-
-h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 20px;
-  color: #333;
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-top: 15px;
-  color: #3f51b5;
-}
-
-p {
-  font-size: 1rem;
-  margin: 5px 0;
-  color: #555;
-}
-
-code {
-  font-family: "Courier New", Courier, monospace;
-  background-color: #f4f4f4;
-  padding: 5px;
-  border-radius: 4px;
-}
-
-pre {
-  background-color: #f4f4f4;
-  padding: 10px;
-  border-radius: 4px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
 .request-details {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .v-row {
