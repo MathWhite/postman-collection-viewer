@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>Doc by Matheus</v-toolbar-title>
@@ -27,7 +27,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-  </v-app>
+  
 </template>
 
 <script>

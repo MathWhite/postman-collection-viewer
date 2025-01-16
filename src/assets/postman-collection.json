@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "331480cd-d610-4d75-9c15-47173b9d4367",
+		"name": "jitterbit-matheus-apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27303849"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "harmony-login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"// Verifica se o campo 'token' existe na resposta\r",
+									"if (jsonResponse.token) {\r",
+									"    var value = jsonResponse.token;\r",
+									"    pm.collectionVariables.set(\"token\", value);\r",
+									"} else {\r",
+									"    console.log(\"Token não encontrado na resposta\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"youemail@jitterbit.com\",\n    \"password\": \"yourpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://18.228.44.24:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"18",
+								"228",
+								"44",
+								"24"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "harmony-login-token-only",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"// Verifica se o campo 'token' existe na resposta\r",
+									"if (jsonResponse.token) {\r",
+									"    var value = jsonResponse.token;\r",
+									"    pm.collectionVariables.set(\"token\", value);\r",
+									"} else {\r",
+									"    console.log(\"Token não encontrado na resposta\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"youemail@jitterbit.com\",\n    \"password\": \"yourpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://18.228.44.24:3000/api/login/token",
+							"protocol": "http",
+							"host": [
+								"18",
+								"228",
+								"44",
+								"24"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Manager",
+			"item": [
+				{
+					"name": "turn-logs-on",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://18.228.44.24:3000/api/turnlogson?orgId=1234&envId=1234",
+							"protocol": "http",
+							"host": [
+								"18",
+								"228",
+								"44",
+								"24"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"turnlogson"
+							],
+							"query": [
+								{
+									"key": "orgId",
+									"value": "1234"
+								},
+								{
+									"key": "envId",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "project-list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://18.228.44.24:3000/api/projects?orgId=673950",
+							"protocol": "http",
+							"host": [
+								"18",
+								"228",
+								"44",
+								"24"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "orgId",
+									"value": "673950"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jitterbit MQ",
+			"item": [
+				{
+					"name": "jbmq-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://18.228.44.24:3000/api/jbmq?orgId=1234&envId=1234",
+							"protocol": "http",
+							"host": [
+								"18",
+								"228",
+								"44",
+								"24"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"jbmq"
+							],
+							"query": [
+								{
+									"key": "orgId",
+									"value": "1234"
+								},
+								{
+									"key": "envId",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jbmq-content",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://18.228.44.24:3000/api/jbmq/content?orgId=1234&envId=1234&queueName=prd-test-queue",
+							"protocol": "http",
+							"host": [
+								"18",
+								"228",
+								"44",
+								"24"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"jbmq",
+								"content"
+							],
+							"query": [
+								{
+									"key": "orgId",
+									"value": "1234"
+								},
+								{
+									"key": "envId",
+									"value": "1234"
+								},
+								{
+									"key": "queueName",
+									"value": "prd-test-queue"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
